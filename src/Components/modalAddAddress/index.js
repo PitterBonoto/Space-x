@@ -69,7 +69,7 @@ function ModalAddAddress({ show, handleClose, addNewAddress }) {
         <Form>
           <Form.Group class="input-group mb-3">
             <label class="input-group-text" for="inputGroupSelect01">
-              Planet
+              Planeta
             </label>
             <select
               class="form-select"
