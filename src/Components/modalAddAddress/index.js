@@ -20,7 +20,7 @@ function ModalAddAddress({ show, handleClose, addNewAddress }) {
   //----------------------------------ADICIONAR ENDEREÇO----------------------------------
   async function addAddress() {
     const { data: newAddress } = await axios.post(
-      "http://localhost:3001/addresses",
+      "https://space-x-api.vercel.app/addresses",
       {
         name: inputName.current.value,
         cep: inputCep.current.value,

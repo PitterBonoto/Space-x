@@ -4,7 +4,7 @@ import axios from "axios";
 
 function Address({ children, removeAddress }) {
   async function handleDelete() {
-    await axios.delete(`http://localhost:3001/addresses/${children.id}`);
+    await axios.delete(`${process.env.URL}/addresses/${children.id}`);
     removeAddress(children.id);
   }
 
@@ -30,14 +30,12 @@ function Address({ children, removeAddress }) {
             <Card.Link
               onClick={editAddress}
               className="btn btn-outline-secondary"
-              href="#"
             >
               Editar
             </Card.Link>
             <Card.Link
               onClick={handleDelete}
               className="btn btn-outline-danger"
-              href="#"
             >
               Excluir
             </Card.Link>

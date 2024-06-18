@@ -19,7 +19,7 @@ function EditAddress() {
   useEffect(() => {
     async function fetchUsers() {
       const { data: myAddress } = await axios.get(
-        `http://localhost:3001/addresses/${id}`
+        `https://space-x-api.vercel.app/addresses/${id}`
       );
       setAddress(myAddress);
     }
@@ -41,7 +41,7 @@ function EditAddress() {
 
   async function saveEditAddress() {
     const { data: newAddress } = await axios.put(
-      `http://localhost:3001/addresses/${id}`,
+      `https://space-x-api.vercel.app/addresses/${id}`,
       {
         name: inputName.current.value,
         cep: inputCep.current.value,

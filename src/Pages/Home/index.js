@@ -5,11 +5,13 @@ import Address from "../../Components/card1";
 import axios from "axios";
 import SpaceX from "../../Assets/space-x.png"
 
+
 function App() {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const [address, setAddress] = useState([]);
+
 
   //----------------------------------PEGAR ENDEREÇOS----------------------------------
   /*async function getAddress() {
@@ -22,7 +24,7 @@ function App() {
   useEffect(() => {
     async function fetchUsers() {
       const { data: listAddress } = await axios.get(
-        "http://localhost:3001/addresses"
+        "https://space-x-api.vercel.app/addresses"
       );
       setAddress(listAddress);
     }
