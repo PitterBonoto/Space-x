@@ -4,7 +4,7 @@ import axios from "axios";
 
 function Address({ children, removeAddress }) {
   async function handleDelete() {
-    await axios.delete(`${process.env.URL}/addresses/${children.id}`);
+    await axios.delete(`https://space-x-api.vercel.app/addresses/${children.id}`);
     removeAddress(children.id);
   }
 

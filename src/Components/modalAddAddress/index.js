@@ -5,7 +5,6 @@ import Modal from "react-bootstrap/Modal";
 import axios from "axios";
 
 function ModalAddAddress({ show, handleClose, addNewAddress }) {
-  const [address, setAddress] = useState([]);
   const [cepComplete, setCepComplete] = useState();
   const [selectedPlanet, setSelectedPlanet] = useState("Terra");
   const inputName = useRef();
@@ -19,46 +18,50 @@ function ModalAddAddress({ show, handleClose, addNewAddress }) {
 
   //----------------------------------ADICIONAR ENDEREÇO----------------------------------
   async function addAddress() {
-    const { data: newAddress } = await axios.post(
-      "https://space-x-api.vercel.app/addresses",
-      {
-        name: inputName.current.value,
-        cep: inputCep.current.value,
-        street: inputStreet.current.value,
-        number: inputNumber.current.value,
-        district: inputDistrict.current.value,
-        city: inputCity.current.value,
-        uf: inputUf.current.value,
-        planet: inputPlanet.current.value,
-      }
-    );
-    addNewAddress(newAddress);
-    handleClose();
+    try {
+      const { data: newAddress } = await axios.post(
+        "https://space-x-api.vercel.app/addresses",
+        {
+          name: inputName.current.value,
+          cep: inputCep.current.value,
+          street: inputStreet.current.value,
+          number: inputNumber.current.value,
+          district: inputDistrict.current.value,
+          city: inputCity.current.value,
+          uf: inputUf.current.value,
+          planet: inputPlanet.current.value,
+        }
+      );
+      addNewAddress(newAddress);
+      handleClose();
+    } catch (error) {
+      console.error("Erro ao adicionar endereço:", error);
+    }
   }
 
-  const checkCep = (e) => {
+  const checkCep = async (e) => {
     const cep = e.target.value.replace(/\D/g, "");
-    fetch(`http://viacep.com.br/ws/${cep}/json/`)
-      .then((res) => res.json())
-      .then((data) => {
-        setCepComplete(data)
-      });
+    try {
+      const res = await fetch(`http://viacep.com.br/ws/${cep}/json/`);
+      const data = await res.json();
+      setCepComplete(data);
+    } catch (error) {
+      console.error("Erro ao buscar CEP:", error);
+    }
   };
 
   useEffect(() => {
     if (cepComplete) {
-      inputStreet.current.value = cepComplete.logradouro || "";   
-        inputDistrict.current.value = cepComplete.bairro || ""; 
-        inputCity.current.value = cepComplete.localidade || ""; 
-        inputUf.current.value = cepComplete.uf || ""; 
+      inputStreet.current.value = cepComplete.logradouro || "";
+      inputDistrict.current.value = cepComplete.bairro || "";
+      inputCity.current.value = cepComplete.localidade || "";
+      inputUf.current.value = cepComplete.uf || "";
     }
   }, [cepComplete]);
-
 
   const handlePlanetChange = (e) => {
     setSelectedPlanet(e.target.value);
   };
-  
 
   return (
     <Modal show={show} onHide={handleClose}>
@@ -67,12 +70,12 @@ function ModalAddAddress({ show, handleClose, addNewAddress }) {
       </Modal.Header>
       <Modal.Body>
         <Form>
-          <Form.Group class="input-group mb-3">
-            <label class="input-group-text" for="inputGroupSelect01">
+          <Form.Group className="input-group mb-3">
+            <label className="input-group-text" htmlFor="inputGroupSelect01">
               Planeta
             </label>
             <select
-              class="form-select"
+              className="form-select"
               id="inputGroupSelect01"
               ref={inputPlanet}
               onChange={handlePlanetChange}
@@ -86,25 +89,20 @@ function ModalAddAddress({ show, handleClose, addNewAddress }) {
           <div className="row mb-3">
             <Form.Group className="col-8" controlId="nameForm">
               <Form.Label>
-                <strong>Name</strong>
+                <strong>Nome</strong>
               </Form.Label>
-              <Form.Control
-                ref={inputName}
-                type="text"
-                placeholder="Name"
-                autoFocus
-              />
+              <Form.Control ref={inputName} type="text" placeholder="Nome" />
             </Form.Group>
 
             <Form.Group className="col-4" controlId="cepForm">
               <Form.Label>
-                <strong>Cep</strong>
+                <strong>CEP</strong>
               </Form.Label>
               <Form.Control
                 onBlur={checkCep}
                 ref={inputCep}
                 type="text"
-                placeholder="Cep"
+                placeholder="CEP"
                 disabled={selectedPlanet === "Marte"}
               />
             </Form.Group>
@@ -127,25 +125,21 @@ function ModalAddAddress({ show, handleClose, addNewAddress }) {
               <Form.Label>
                 <strong>Número</strong>
               </Form.Label>
-              <Form.Control
-                ref={inputNumber}
-                type="text"
-                placeholder="Número"
-              />
+              <Form.Control ref={inputNumber} type="text" placeholder="Número" />
             </Form.Group>
           </div>
 
           <Form.Group className="col-12" controlId="districtForm">
-              <Form.Label>
-                <strong>Bairro</strong>
-              </Form.Label>
-              <Form.Control
-                ref={inputDistrict}
-                type="text"
-                placeholder="Bairro"
-                disabled={selectedPlanet === "Marte"}
-              />
-            </Form.Group>
+            <Form.Label>
+              <strong>Bairro</strong>
+            </Form.Label>
+            <Form.Control
+              ref={inputDistrict}
+              type="text"
+              placeholder="Bairro"
+              disabled={selectedPlanet === "Marte"}
+            />
+          </Form.Group>
 
           <div className="row mb-3">
             <Form.Group className="col-8" controlId="cityForm">
@@ -172,14 +166,13 @@ function ModalAddAddress({ show, handleClose, addNewAddress }) {
               />
             </Form.Group>
           </div>
-          
         </Form>
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={handleClose}>
           Sair
         </Button>
-        <Button addressValue={address} variant="primary" onClick={addAddress}>
+        <Button variant="primary" onClick={addAddress}>
           Salvar
         </Button>
       </Modal.Footer>
