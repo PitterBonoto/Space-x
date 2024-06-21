@@ -14,6 +14,8 @@
 <br>
 <br>
 
+<h3>Deploy - <a> href="https://spacexpitter.netlify.app"/</a> </h3>
+
 <h5>O vídeo abaixo mostra a aplicação sendo executada..</h5>
 <br>
 
