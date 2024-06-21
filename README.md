@@ -2,9 +2,9 @@
 <br>
 
 <h3>Cadastro e edição de endereços.</h3>
-<h6>Este projeto foi desenvolvido a partir de um desafio, que consistia em criar um cadastro de endereços para uma entregadora futurista que enviasse produtos da Terra para Marte.</h6>
+<h6>Este projeto foi desenvolvido a partir de um desafio, que consistia em criar um cadastro de endereços para uma entregadora do futuro que enviasse produtos da Terra para Marte e vice-versa, considerando que Marte só existe um número no endereço.</h6>
 <br>
-<h6>Foi desenvolvido o projeto que basicamente são duas telas e um modal, onde faz o Cadastro, edição e exibição da lista de endereços cadastrados. O projeto consome uma api desenvolvida por mim que armazena os dados e uma api de busca por cep.</h6>
+<h6>Foi desenvolvido a aplicação em duas telas e um modal, onde faz o cadastro, edição e exibição da lista de endereços cadastrados. O projeto consome uma API desenvolvida por mim que armazena os dados e uma API de busca por cep, onde realiza o preenchimento automático do endereço.</h6>
 <br>
 <h3>Tecnologias utilizadas: </h3>
 <img align="left" src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB">
