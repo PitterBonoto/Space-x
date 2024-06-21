@@ -42,7 +42,7 @@ function ModalAddAddress({ show, handleClose, addNewAddress }) {
   const checkCep = async (e) => {
     const cep = e.target.value.replace(/\D/g, "");
     try {
-      const res = await fetch(`http://viacep.com.br/ws/${cep}/json/`);
+      const res = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
       const data = await res.json();
       setCepComplete(data);
     } catch (error) {
